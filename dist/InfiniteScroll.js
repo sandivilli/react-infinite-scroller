@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true,
 });
 
-var _createClass = (function() {
+var _createClass = (function () {
   function defineProperties(target, props) {
     for (var i = 0; i < props.length; i++) {
       var descriptor = props[i];
@@ -14,7 +14,7 @@ var _createClass = (function() {
       Object.defineProperty(target, descriptor.key, descriptor);
     }
   }
-  return function(Constructor, protoProps, staticProps) {
+  return function (Constructor, protoProps, staticProps) {
     if (protoProps) defineProperties(Constructor.prototype, protoProps);
     if (staticProps) defineProperties(Constructor, staticProps);
     return Constructor;
@@ -64,7 +64,7 @@ function _inherits(subClass, superClass) {
   if (typeof superClass !== 'function' && superClass !== null) {
     throw new TypeError(
       'Super expression must either be null or a function, not ' +
-        typeof superClass,
+      typeof superClass,
     );
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, {
@@ -81,7 +81,7 @@ function _inherits(subClass, superClass) {
       : (subClass.__proto__ = superClass);
 }
 
-var InfiniteScroll = (function(_Component) {
+var InfiniteScroll = (function (_Component) {
   _inherits(InfiniteScroll, _Component);
 
   function InfiniteScroll(props) {
@@ -263,7 +263,12 @@ var InfiniteScroll = (function(_Component) {
           this.detachScrollListener();
           // Call loadMore after detachScrollListener to allow for non-async loadMore functions
           if (typeof this.props.loadMore === 'function') {
-            this.props.loadMore((this.pageLoaded += 1));
+
+            let pageNum = this.pageLoaded
+
+            if (this.props.loadMore(pageNum)) {
+              this.pageLoaded = this.pageLoaded + 1
+            }
           }
         }
       },
@@ -326,7 +331,7 @@ var InfiniteScroll = (function(_Component) {
             'getScrollParent',
           ]);
 
-        props.ref = function(node) {
+        props.ref = function (node) {
           _this2.scrollComponent = node;
           if (ref) {
             ref(node);
